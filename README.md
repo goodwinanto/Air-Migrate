@@ -1,119 +1,109 @@
 # AirMigrate
 
-**AirMigrate** is a cross-platform (Linux, macOS, Windows) Python desktop tool that safely transfers and organizes media files (photos, videos, etc.) from an iPhone to your PC. It works without iCloud, using [ifuse](https://github.com/libimobiledevice/ifuse) to mount your iPhone, and ensures zero data loss, privacy, and a clean user experience.
+![Project Status: In Progress](https://img.shields.io/badge/status-in--progress-yellow)
+
+**AirMigrate** is a cross-platform Python desktop application designed to safely transfer and organize media files (photos and videos) from an iPhone to your computer without using iCloud. It leverages [ifuse](https://github.com/libimobiledevice/ifuse) to mount your iPhone's file system and provides a robust, privacy-focused workflow for copying or moving files.
 
 ---
 
-## ✨ Features
+## Project Status
 
-- **Scan iPhone DCIM folder:** Detect all Apple-style subfolders (e.g., 100APPLE, 101APPLE).
-- **Media categorization:** Counts and previews for:
-  - Photos (.HEIC)
-  - Videos (.MOV)
-  - Live Photos (.HEIC + .MOV)
-  - Portraits, Panoramas, Raw/ProRAW, Cinematic, Slow-Mo, Time-lapse, Burst, Selfies, Screenshots, Screen Recordings, GIFs
-- **Folder-level & total summary:** See counts and total size before transfer.
-- **Flexible transfer:** Copy/move all or selected subfolders.
-- **Destination options:**
-  - Replicate iPhone folder structure or organize by type/date.
-  - Pick or create a destination folder easily.
-  - Warn if destination is not empty and check for enough free space.
-- **Data integrity:**
-  - Verifies each file by hash or size+timestamp.
-  - Live Photos always transferred as pairs.
-  - Moves only after successful copy and verification.
-- **Error handling:** Robust detection of permission, device, or file system errors.
-- **Progress feedback:** See per-folder and overall progress, with estimated time.
-- **Privacy first:** No cloud, no analytics, no data sent anywhere.
+This project is currently **in progress**. Functionality and documentation are evolving.  
+Expect bugs and incomplete features.
 
 ---
 
-## 🖥️ How It Works
+## Features
 
-1. **Mount your iPhone** with ifuse at `~/iPhone` (or your chosen mount point).
-2. **Start AirMigrate:** Launch the app and select your destination folder (or let it create one for you).
-3. **Preview:** See a categorized summary of your iPhone media.
-4. **Choose:** Pick to copy/move all or selected folders, and your preferred organization style.
-5. **Transfer:** AirMigrate safely transfers (and optionally moves) files, verifying each one.
-6. **Complete:** Get a summary of what was copied, skipped, or failed.
-
----
-
-## 📦 Project Structure
-
-```
-AirMigrate/
-├── gui.py            # Tkinter-based GUI interface
-├── media_handler.py  # Scanning, classification, copy/move logic
-├── utils.py          # Helper functions (e.g., default folder, hash)
-├── main.py           # Launches the GUI
-└── README.md         # This file
-```
+- **Scan & Summarize:** Scans the iPhone DCIM folder for all media (photos, videos, Live Photos, Portraits, Panoramas, RAW, etc.) and provides a folder-level and total summary before transferring.
+- **Media Classification:** Categorizes media types for flexible organization.
+- **Copy or Move:** Allows you to either copy or move media files, with robust verification (hash-based) to ensure data integrity.
+- **Live Photo Handling:** Handles paired files (HEIC+MOV) for Live Photos.
+- **Progress Feedback:** Shows progress bar and per-file status during transfer.
+- **Error Handling:** Logs every operation, error, hash mismatch, and summary in a log file (`airmigrate.log`).
+- **Privacy Respecting:** No cloud, no analytics, all processing is local.
 
 ---
 
-## 🚀 Getting Started
+## Typical Workflow
 
-### Prerequisites
+1. **Mount your iPhone** using [ifuse](https://github.com/libimobiledevice/ifuse).
+2. **Launch AirMigrate** and select your source (iPhone/DCIM) and destination folders.
+3. **Scan and review** your media files and summary.
+4. **Choose Copy or Move**, then start the operation.
+5. **Monitor progress** and review the log for details.
 
-- **Python 3.8+**
-- **ifuse** (installation varies by OS)
-- **Tkinter** (usually included with Python)
-- **pip** for dependencies
+---
 
-### Basic Setup
+## Requirements
 
-1. **Clone this repo** (or download the files).
-2. **Mount your iPhone** using ifuse:
-   ```sh
-   mkdir -p ~/iPhone
-   ifuse ~/iPhone
-   ```
+- Python 3.7+
+- [ifuse](https://github.com/libimobiledevice/ifuse) (for mounting iPhone's DCIM folder)
+- Tkinter (for GUI, usually included with Python)
+- Standard Python libraries (`os`, `shutil`, `hashlib`, etc.)
+
+---
+
+## Installation
+
+1. **Clone this repository:**
+    ```sh
+    git clone https://github.com/<your-username>/aptivate.git
+    cd aptivate
+    ```
+
+2. **(Optional) Create a virtual environment:**
+    ```sh
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
 3. **Install dependencies:**
-   ```sh
-   pip install -r requirements.txt
-   ```
-4. **Run AirMigrate:**
-   ```sh
-   python main.py
-   ```
+    - For most systems, Tkinter is included.
+    - If missing:  
+      - Ubuntu: `sudo apt-get install python3-tk`
+      - macOS: Included with Python from python.org or Homebrew.
 
 ---
 
-## ⚠️ Safety & Data Integrity
+## Usage
 
-- Always **copy first, verify**, then move/delete originals.
-- All files are checked for integrity (hash or size+timestamp).
-- Live Photos are always paired and transferred together.
-- No files are deleted unless you explicitly choose **Move** and verification passes.
+1. **Mount your iPhone:**
+    ```sh
+    ifuse /mnt/iphone
+    ```
+    (Replace `/mnt/iphone` with your desired mount point.)
 
----
+2. **Run the app:**
+    ```sh
+    python main.py
+    ```
 
-## 🧩 Advanced & Optional
-
-- **Simulation mode:** Preview what will be transferred without copying.
-- **Export logs:** Optionally export a summary/log of transfers.
-- **CLI version:** (planned) for scripting or automation.
-
----
-
-## 🛠️ Contributing
-
-Contributions and feedback are welcome!  
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details (coming soon).
+3. **Follow the GUI prompts** to select your source and destination folders, scan, and transfer files.
 
 ---
 
-## 📄 License
+## Logging
 
-MIT License. See [LICENSE](LICENSE) for full text.
-
----
-
-## 💬 Support
-
-For issues or feature requests, please open an issue on GitHub.
+All operations, errors, and hash verifications are logged to `airmigrate.log` in the working directory.  
+Review this log for troubleshooting or to audit the transfer process.
 
 ---
 
-**AirMigrate** — The safe, open-source way to move your iPhone photos and videos to your computer, with zero data loss.
+## Contributing
+
+Pull requests and issues are welcome!  
+Please note that this project is **in progress** and may change rapidly.
+
+---
+
+## License
+
+MIT License
+
+---
+
+## Disclaimer
+
+This project is not affiliated with Apple Inc.  
+Use at your own risk—always verify your backups before deleting originals.
