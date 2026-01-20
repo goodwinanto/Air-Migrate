@@ -106,4 +106,4 @@ MIT License
 ## Disclaimer
 
 This project is not affiliated with Apple Inc.  
-Use at your own risk—always verify your backups before deleting originals.
+Use at your own risk, always verify your backups before deleting originals.
